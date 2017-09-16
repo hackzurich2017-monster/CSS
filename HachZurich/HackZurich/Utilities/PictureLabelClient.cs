@@ -13,7 +13,7 @@ namespace HackZurich.Utilities
 {
     public static class PictureLabelClient
     {
-        public static ArrayList getDescriptionOfPicture(string picturePath = "C:\\HackatonTemp\\Apple.jpg", int numItemsToReturn = 3, int threshold = 5)
+        public static ArrayList getDescriptionOfPicture(string picturePath = "C:\\HackatonTemp\\Apple.jpg", int numItemsToReturn = 3, double threshold = 0.5)
         {
             var image = Image.FromFile(picturePath);
 
@@ -22,11 +22,11 @@ namespace HackZurich.Utilities
             ArrayList allDesc = new ArrayList();
             foreach (var annotation in response)
             {
-                if (annotation.Description != null && annotation.Confidence > threshold)
+                if ((annotation.Description != null) && (annotation.Score > threshold))
                     allDesc.Add(annotation.Description);
             }
-            int min = Math.Min(numItemsToReturn, 0);
-            allDesc = allDesc.GetRange(0, numItemsToReturn);
+            int min = Math.Min(numItemsToReturn, allDesc.Count);
+            allDesc = allDesc.GetRange(0, min);
 
             return allDesc;
         }
