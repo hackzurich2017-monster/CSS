@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HackZurich.Utilities;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +12,10 @@ namespace HackZurich.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+
+            ArrayList st = PictureLabelClient.getDescriptionOfPicture();
+            ViewBag.Title = "Home Screen";
+            ViewBag.Items = String.Join(", ", st.ToArray());
 
             return View();
         }
